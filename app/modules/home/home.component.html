@@ -1,0 +1,30 @@
+<ActionBar class="action-bar-title" title="Talabino">
+    <NavigationButton text="Drawer" icon="res://menu_white" (tap)="toggle()"></NavigationButton>
+    <ActionItem (tap)="onEdit()"
+                ios.systemIcon="12" android.systemIcon="ic_search"
+                ios.position="right"></ActionItem>
+
+    <ActionItem text="notifications" (tap)="onSave()"
+                icon="res://notifications"  ios.position="right"></ActionItem>
+</ActionBar>
+<RadSideDrawer #drawer [transition]="sideDrawerTransition" selectionBehavior="None">
+    <StackLayout tkDrawerContent class="sideStackLayout">
+        <StackLayout class="sideTitleStackLayout">
+            <Label text="Navigation Menu"></Label>
+        </StackLayout>
+        <grid-layout class="drawer-content">
+            <stack-layout>
+                <Label text="Home" class="sideLabel" [nsRouterLink]="['/home']" nsRouterLinkActive="active"
+                       [nsRouterLinkActiveOptions]="{exact:true}"></Label>
+                <Label text="Profile" class="sideLabel" [nsRouterLink]="['/home/profile']" nsRouterLinkActive="active"
+                       [nsRouterLinkActiveOptions]="{exact:true}"></Label>
+                <Label text="Settings" class="sideLabel" [nsRouterLink]="['/home/settings']" nsRouterLinkActive="active"
+                       [nsRouterLinkActiveOptions]="{exact:true}"></Label>
+                <Label text="Logout" class="sideLabel" (tap)="onLogout()"></Label>
+            </stack-layout>
+        </grid-layout>
+    </StackLayout>
+    <StackLayout tkMainContent>
+        <router-outlet></router-outlet>
+    </StackLayout>
+</RadSideDrawer>

@@ -1,0 +1,26 @@
+.action-bar-title {
+    font-size: 15;
+}
+.sideTitleStackLayout {
+    padding: 20 10;
+    text-align: center;
+    background-color: gray;
+}
+
+.drawer-content {
+    background-color: #eeeeee;
+    color: #891ba5;
+    font-size: 14;
+    font-weight: bold;
+    padding-top: 5;
+}
+
+.sideLabel {
+    padding: 10 20;
+    border-buttom-color: #891ba5;
+    border-width: 1;
+}
+
+.nav-icon{
+    horizontal-align: left;
+}

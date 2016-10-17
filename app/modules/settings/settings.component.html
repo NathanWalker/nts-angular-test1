@@ -1,0 +1,19 @@
+<ActionBar class="action-bar-title" title="Talabino">
+    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back"
+                      (tap)="backToHome()"></NavigationButton>
+</ActionBar>
+<StackLayout>
+    <StackLayout class="header">
+
+    </StackLayout>
+    <StackLayout class="section">
+        <Label text='{{  userSettings.device_id }}'></Label>
+        <TextField hint="Password" secure="true" ></TextField>
+        <TextField hint="Confirm Password" secure="true" ></TextField>
+        <Button text="Update" class="submit-button" (tap)="updateSettings()"></Button>
+    </StackLayout>
+
+    <StackLayout class="footer">
+
+    </StackLayout>
+</StackLayout>

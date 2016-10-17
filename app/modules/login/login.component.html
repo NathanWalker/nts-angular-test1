@@ -1,0 +1,15 @@
+<StackLayout>
+    <StackLayout class="header">
+
+    </StackLayout>
+    <StackLayout class="section">
+        <TextField hint="User Name" keyboardType="email" [(ngModel)]="user.username"
+                   autocorrect="false" autocapitalizationType="none"></TextField>
+        <TextField hint="Password" secure="true" [(ngModel)]="user.password"></TextField>
+        <Button text="Login" class="submit-button" (tap)="login()"></Button>
+    </StackLayout>
+
+    <StackLayout class="footer">
+
+    </StackLayout>
+</StackLayout>

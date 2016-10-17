@@ -1,0 +1,19 @@
+<ActionBar class="action-bar-title" title="Talabino">
+    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back"
+                      (tap)="backToHome()"></NavigationButton>
+</ActionBar>
+<StackLayout>
+    <StackLayout class="header">
+
+    </StackLayout>
+    <StackLayout class="section">
+        <Label text='{{ localUser.restaurant_name }}'></Label>
+        <TextField hint="Password" secure="true" [(ngModel)]="profile.password"></TextField>
+        <TextField hint="Confirm Password" secure="true" [(ngModel)]="profile.cpassword"></TextField>
+        <Button text="Update" class="submit-button" (tap)="updateProfile()"></Button>
+    </StackLayout>
+
+    <StackLayout class="footer">
+
+    </StackLayout>
+</StackLayout>

@@ -1,0 +1,7 @@
+.sass-cache
+.tmp
+.idea
+node_modules
+bower_components
+hooks
+platforms

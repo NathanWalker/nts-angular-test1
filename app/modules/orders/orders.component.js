@@ -1,30 +1,62 @@
 "use strict";
 var core_1 = require("@angular/core");
-var http_1 = require('@angular/http');
-require('rxjs/add/operator/map');
+var appSettings = require("application-settings");
+var orders_service_1 = require('./orders.service');
 var OrdersComponent = (function () {
-    function OrdersComponent(http) {
-        this.http = http;
+    function OrdersComponent(ordersService, zone) {
+        this.ordersService = ordersService;
+        this.zone = zone;
         this.isLoading = false;
         this.tabIndex = 0;
+        this.noResult = false;
+        this.user = {
+            mtid: '',
+            user_type: '',
+            token: ''
+        };
     }
-    OrdersComponent.prototype.tabIndexChanged = function (e) {
+    OrdersComponent.prototype.ngOnInit = function () {
+        this.localUser = JSON.parse(appSettings.getString('user-profile'));
+        this.user.mtid = this.localUser.merchant_id;
+        this.user.user_type = this.localUser.user_type;
+        this.user.token = this.localUser.token;
+    };
+    OrdersComponent.prototype.getOrders = function (name) {
         var _this = this;
-        if (e.newIndex == 1) {
-            this.isLoading = true;
-            this.http.get('https://randomuser.me/api/?results=1&nat=u').map(function (res) { return res.json(); }).subscribe(function (response) {
-                console.log(response.results[0].gender);
+        this.ordersService[name](this.user)
+            .subscribe(function (res) {
+            _this.zone.run(function () {
+                var data = JSON.parse(res);
                 _this.isLoading = false;
+                if (data.details == '') {
+                    _this.noResult = true;
+                    console.log(_this.noResult);
+                }
             });
+        }, function (err) { return alert("Please check your internet connection and try again"); });
+    };
+    OrdersComponent.prototype.tabIndexChanged = function (e) {
+        if (e.newIndex == 0) {
+            this.isLoading = true;
+            this.getOrders("getTodaysOrder");
+        }
+        else if (e.newIndex == 1) {
+            this.isLoading = true;
+            this.getOrders("getPendingOrders");
+        }
+        else if (e.newIndex == 2) {
+            this.isLoading = true;
+            this.getOrders("getAllOrders");
         }
     };
     OrdersComponent = __decorate([
         core_1.Component({
             selector: "tb-orders",
+            providers: [orders_service_1.OrdersService],
             templateUrl: "modules/orders/orders.component.html",
             styleUrls: ["modules/orders/orders.component.css"],
         }), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [orders_service_1.OrdersService, core_1.NgZone])
     ], OrdersComponent);
     return OrdersComponent;
 }());

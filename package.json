@@ -6,7 +6,7 @@
   "nativescript": {
     "id": "org.nativescript.friday",
     "tns-android": {
-      "version": "2.3.0"
+      "version": "2.4.0-next-2016-10-19-1286"
     },
     "tns-ios": {
       "version": "2.4.0-2016-9-28-1"

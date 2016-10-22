@@ -16,6 +16,7 @@ import {ProfileComponent} from "./modules/profile/profile.component";
 import {LoginGuard} from "./modules/login/login.guard";
 import {ProfileGuard} from "./modules/profile/profile.guard";
 import {SettingsComponent} from "./modules/settings/settings.component";
+import {DrawerService} from "./modules/shared/drawer.service";
 
 @NgModule({
     declarations: [AppComponent, HomeComponent,
@@ -37,7 +38,8 @@ import {SettingsComponent} from "./modules/settings/settings.component";
     ],
     providers: [
         LoginGuard,
-        ProfileGuard
+        ProfileGuard,
+        DrawerService
     ]
 
 })

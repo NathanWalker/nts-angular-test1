@@ -14,6 +14,7 @@ import {DrawerTransitionBase, SlideInOnTopTransition} from 'nativescript-telerik
 import {Page} from "ui/page";
 
 import * as appSettings from "application-settings";
+import { DrawerService } from '../shared/drawer.service';
 
 @Component({
     moduleId: module.id,
@@ -26,12 +27,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     @ViewChild(RadSideDrawerComponent) public drawerComponent: RadSideDrawerComponent;
     private _sideDrawerTransition: DrawerTransitionBase;
-    private _drawer: SideDrawerType;
 
     constructor(
         @Inject(Page) private _page: Page,
         private _changeDetectionRef: ChangeDetectorRef,
-        private _router: Router) {
+        private _router: Router,
+        private _drawerService: DrawerService
+    ) {
         _page.on("loaded", this.onLoaded, this);
     }
 
@@ -40,7 +42,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
 
     public toggle() {
-        this._drawer.toggleDrawerState();
+        this._drawerService.toggle();
     }
 
     public onLoaded(args) {
@@ -50,18 +52,18 @@ export class HomeComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         this._router.events.subscribe((e) => {
             if (e instanceof NavigationEnd) {
-                this._drawer.closeDrawer();
+                this._drawerService.toggle(false);
             }
         });
     }
 
     ngAfterViewInit() {
-        this._drawer = this.drawerComponent.sideDrawer;
+        this._drawerService.drawer = this.drawerComponent.sideDrawer;
         this._changeDetectionRef.detectChanges();
     }
 
     public openDrawer() {
-        this._drawer.showDrawer();
+        this._drawerService.toggle(true);
     }
 
     public onLogout(){

@@ -27,7 +27,7 @@ export class OrdersService {
         params.set('user_type', localUser.user_type);
 
         return this.http.get(this.OrdersUrl + 'GetAllOrders',
-            {search: params}
+            {search: params, headers}
         )
             .map(this.allOrdersData)
             .catch(this.allOrdersErrors);
@@ -57,13 +57,14 @@ export class OrdersService {
         params.set('user_type', localUser.user_type);
 
         return this.http.get(this.OrdersUrl + 'GetPendingOrders',
-            {search: params}
+            {search: params, headers}
         )
             .map(this.pendingOrdersData)
             .catch(this.pendingOrdersErrors);
     }
 
     pendingOrdersData(res: any) {
+
         let body = res.json().toString().slice(1, -1);
         return body;
     }
@@ -87,7 +88,7 @@ export class OrdersService {
         params.set('user_type', localUser.user_type);
 
         return this.http.get(this.OrdersUrl + 'GetTodaysOrder',
-            {search: params}
+            {search: params, headers}
         )
             .map(this.todaysOrderData)
             .catch(this.todaysOrderErrors);
@@ -95,10 +96,13 @@ export class OrdersService {
 
     todaysOrderData(res: any) {
         let body = res.json().toString().slice(1, -1);
+        console.log(body);
         return body;
     }
 
     todaysOrderErrors(error: Response) {
+        console.log(`todaysOrderErrors`);
+        console.log(error);
         return Observable.throw(error);
     }
 }

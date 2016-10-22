@@ -1,12 +1,3 @@
-<ActionBar class="action-bar-title" title="Talabino">
-    <NavigationButton text="Drawer" icon="res://menu_white" (tap)="toggle()"></NavigationButton>
-    <ActionItem (tap)="onEdit()"
-                ios.systemIcon="12" android.systemIcon="ic_search"
-                ios.position="right"></ActionItem>
-
-    <ActionItem text="notifications" (tap)="onSave()"
-                icon="res://notifications"  ios.position="right"></ActionItem>
-</ActionBar>
 <RadSideDrawer #drawer [transition]="sideDrawerTransition" selectionBehavior="None">
     <StackLayout tkDrawerContent class="sideStackLayout">
         <StackLayout class="sideTitleStackLayout">

@@ -5,11 +5,13 @@ var angular_1 = require('nativescript-telerik-ui/sidedrawer/angular');
 var sidedrawer_1 = require('nativescript-telerik-ui/sidedrawer');
 var page_1 = require("ui/page");
 var appSettings = require("application-settings");
+var drawer_service_1 = require('../shared/drawer.service');
 var HomeComponent = (function () {
-    function HomeComponent(_page, _changeDetectionRef, _router) {
+    function HomeComponent(_page, _changeDetectionRef, _router, _drawerService) {
         this._page = _page;
         this._changeDetectionRef = _changeDetectionRef;
         this._router = _router;
+        this._drawerService = _drawerService;
         _page.on("loaded", this.onLoaded, this);
     }
     Object.defineProperty(HomeComponent.prototype, "sideDrawerTransition", {
@@ -20,7 +22,7 @@ var HomeComponent = (function () {
         configurable: true
     });
     HomeComponent.prototype.toggle = function () {
-        this._drawer.toggleDrawerState();
+        this._drawerService.toggle();
     };
     HomeComponent.prototype.onLoaded = function (args) {
         this._sideDrawerTransition = new sidedrawer_1.SlideInOnTopTransition();
@@ -29,16 +31,16 @@ var HomeComponent = (function () {
         var _this = this;
         this._router.events.subscribe(function (e) {
             if (e instanceof router_1.NavigationEnd) {
-                _this._drawer.closeDrawer();
+                _this._drawerService.toggle(false);
             }
         });
     };
     HomeComponent.prototype.ngAfterViewInit = function () {
-        this._drawer = this.drawerComponent.sideDrawer;
+        this._drawerService.drawer = this.drawerComponent.sideDrawer;
         this._changeDetectionRef.detectChanges();
     };
     HomeComponent.prototype.openDrawer = function () {
-        this._drawer.showDrawer();
+        this._drawerService.toggle(true);
     };
     HomeComponent.prototype.onLogout = function () {
         appSettings.remove("user-profile");
@@ -57,7 +59,7 @@ var HomeComponent = (function () {
             changeDetection: core_1.ChangeDetectionStrategy.OnPush
         }),
         __param(0, core_1.Inject(page_1.Page)), 
-        __metadata('design:paramtypes', [page_1.Page, core_1.ChangeDetectorRef, router_1.Router])
+        __metadata('design:paramtypes', [page_1.Page, core_1.ChangeDetectorRef, router_1.Router, drawer_service_1.DrawerService])
     ], HomeComponent);
     return HomeComponent;
 }());

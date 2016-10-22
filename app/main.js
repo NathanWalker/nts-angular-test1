@@ -15,6 +15,7 @@ var profile_component_1 = require("./modules/profile/profile.component");
 var login_guard_1 = require("./modules/login/login.guard");
 var profile_guard_1 = require("./modules/profile/profile.guard");
 var settings_component_1 = require("./modules/settings/settings.component");
+var drawer_service_1 = require("./modules/shared/drawer.service");
 var AppComponentModule = (function () {
     function AppComponentModule() {
     }
@@ -39,7 +40,8 @@ var AppComponentModule = (function () {
             ],
             providers: [
                 login_guard_1.LoginGuard,
-                profile_guard_1.ProfileGuard
+                profile_guard_1.ProfileGuard,
+                drawer_service_1.DrawerService
             ]
         }), 
         __metadata('design:paramtypes', [])

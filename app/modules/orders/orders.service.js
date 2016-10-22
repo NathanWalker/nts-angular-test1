@@ -22,7 +22,7 @@ var OrdersService = (function () {
         params.set('mtid', localUser.mtid);
         params.set('token', localUser.token);
         params.set('user_type', localUser.user_type);
-        return this.http.get(this.OrdersUrl + 'GetAllOrders', { search: params })
+        return this.http.get(this.OrdersUrl + 'GetAllOrders', { search: params, headers: headers })
             .map(this.allOrdersData)
             .catch(this.allOrdersErrors);
     };
@@ -45,7 +45,7 @@ var OrdersService = (function () {
         params.set('mtid', localUser.mtid);
         params.set('token', localUser.token);
         params.set('user_type', localUser.user_type);
-        return this.http.get(this.OrdersUrl + 'GetPendingOrders', { search: params })
+        return this.http.get(this.OrdersUrl + 'GetPendingOrders', { search: params, headers: headers })
             .map(this.pendingOrdersData)
             .catch(this.pendingOrdersErrors);
     };
@@ -68,15 +68,18 @@ var OrdersService = (function () {
         params.set('mtid', localUser.mtid);
         params.set('token', localUser.token);
         params.set('user_type', localUser.user_type);
-        return this.http.get(this.OrdersUrl + 'GetTodaysOrder', { search: params })
+        return this.http.get(this.OrdersUrl + 'GetTodaysOrder', { search: params, headers: headers })
             .map(this.todaysOrderData)
             .catch(this.todaysOrderErrors);
     };
     OrdersService.prototype.todaysOrderData = function (res) {
         var body = res.json().toString().slice(1, -1);
+        console.log(body);
         return body;
     };
     OrdersService.prototype.todaysOrderErrors = function (error) {
+        console.log("todaysOrderErrors");
+        console.log(error);
         return Rx_1.Observable.throw(error);
     };
     OrdersService = __decorate([

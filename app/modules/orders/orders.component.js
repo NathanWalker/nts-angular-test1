@@ -3,9 +3,9 @@ var core_1 = require("@angular/core");
 var appSettings = require("application-settings");
 var orders_service_1 = require('./orders.service');
 var OrdersComponent = (function () {
-    function OrdersComponent(ordersService, zone) {
+    function OrdersComponent(ordersService, ngZone) {
         this.ordersService = ordersService;
-        this.zone = zone;
+        this.ngZone = ngZone;
         this.isLoading = false;
         this.tabIndex = 0;
         this.noResult = false;
@@ -25,17 +25,19 @@ var OrdersComponent = (function () {
         var _this = this;
         this.ordersService[name](this.user)
             .subscribe(function (res) {
-            _this.zone.run(function () {
-                var data = JSON.parse(res);
-                _this.isLoading = false;
-                if (data.details == '') {
-                    _this.noResult = true;
-                    console.log(_this.noResult);
-                }
-            });
+            console.log("getOrders res:", res);
+            // this.ngZone.run(() => {
+            var data = JSON.parse(res);
+            _this.isLoading = false;
+            if (data.details == '') {
+                _this.noResult = true;
+                console.log(_this.noResult);
+            }
+            // });
         }, function (err) { return alert("Please check your internet connection and try again"); });
     };
     OrdersComponent.prototype.tabIndexChanged = function (e) {
+        console.log('tabChange: ' + e.newIndex);
         if (e.newIndex == 0) {
             this.isLoading = true;
             this.getOrders("getTodaysOrder");

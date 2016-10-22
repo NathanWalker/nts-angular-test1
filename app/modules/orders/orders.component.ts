@@ -26,7 +26,7 @@ export class OrdersComponent implements OnInit {
         token: ''
     };
 
-    constructor(private ordersService: OrdersService, private zone: NgZone) {}
+    constructor(private ordersService: OrdersService, private ngZone: NgZone) {}
 
     ngOnInit() {
         this.localUser = JSON.parse(appSettings.getString('user-profile'));
@@ -37,9 +37,9 @@ export class OrdersComponent implements OnInit {
 
     getOrders(name) {
         this.ordersService[name](this.user)
-            .subscribe(
-                (res) => {
-                    this.zone.run(() => {
+            .subscribe((res) => {
+                console.log(`getOrders res:`, res);
+                    this.ngZone.run(() => {
                         let data = JSON.parse(res);
                         this.isLoading = false;
                         if (data.details == '') {
@@ -53,6 +53,7 @@ export class OrdersComponent implements OnInit {
     }
 
     public tabIndexChanged(e: any) {
+        console.log('tabChange: ' + e.newIndex);
         if (e.newIndex == 0) {
             this.isLoading = true;
             this.getOrders("getTodaysOrder");

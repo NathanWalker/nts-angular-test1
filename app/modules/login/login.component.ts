@@ -46,7 +46,6 @@ export class LoginComponent {
             .subscribe(
                 (res) => {
                     let data = JSON.parse(res);
-                    console.log(data.code);
                     if (data.code == 1) {
                         this.localUser.username = data.details.info.username;
                         this.localUser.username = data.details.info.restaurant_name;

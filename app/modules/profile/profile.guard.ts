@@ -7,16 +7,15 @@ import * as appSettings from "application-settings";
 @Injectable()
 export class ProfileGuard implements CanActivate {
 
-    public Authenticate: boolean = true;
-
     constructor(private router: Router){}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean{
+        let auth = true;
         if (appSettings.getString("user-profile") == null){
-            this.Authenticate = false;
+            auth = false;
             this.router.navigate(['/login']);
         }
-        console.log("profile = " + this.Authenticate);
-        return this.Authenticate;
+        console.log("profile = " + auth);
+        return auth;
     }
 }

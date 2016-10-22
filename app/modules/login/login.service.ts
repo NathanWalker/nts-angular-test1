@@ -26,7 +26,7 @@ export class LoginService {
         console.log(params);
 
         return this.http.get(this.BaseUrl + 'login',
-            {search: params}
+            {search: params, headers}
         )
             .map(this.LoginSuccess)
             .catch(this.LoginError);
@@ -51,7 +51,7 @@ export class LoginService {
         console.log(params);
 
         return this.http.get(this.BaseUrl + 'registerMobile',
-            {search: params}
+            {search: params, headers}
         )
             .map(this.RegisterMobileSuccess)
             .catch(this.RegisterMobileError);

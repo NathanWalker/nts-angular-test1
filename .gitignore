@@ -1,7 +1,10 @@
 .sass-cache
 .tmp
 .idea
+*.js
+*.map
 node_modules
 bower_components
 hooks
+lib
 platforms
